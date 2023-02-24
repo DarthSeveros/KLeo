@@ -1,4 +1,4 @@
-<p align="center"><img src="storage/app/public/kleo-logo.svg" width="400"></p>
+<p align="center"><img src="resources/kleo-logo.svg" width="400"></p>
 
 ## Sobre KLeo
 
