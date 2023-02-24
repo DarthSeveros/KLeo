@@ -23,12 +23,14 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::controller(ObraController::class)->group(function() {
-    Route::get('/', 'index')->name('obras.index');
+    Route::get('/{categoria?}', 'index')->name('obras.index');
     Route::get('obras/crear', 'create')->name('obras.create')->middleware(['auth']);
+    Route::get('obras/follow', 'following')->name('obras.following')->middleware('auth');
     Route::get('obras/{id}', 'show')->name('obras.show');
     Route::get('obras/{id}/edit', 'edit')->name('obras.edit')->middleware(['auth']);
 
     Route::get('obras/{obra}/follow','follow')->name('obras.follow')->middleware('auth');
+    
 
     Route::post('obras', 'store')->name('obras.store')->middleware(['auth']);
 

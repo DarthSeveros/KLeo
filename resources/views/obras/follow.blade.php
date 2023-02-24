@@ -3,14 +3,13 @@
 @section('title','Obras')
 
 @section('content')
-<div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+<div class="">
     @if (Route::has('login'))
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             @auth
             <a href="{{ route('obras.create') }}" class="nav-item nav-link">Crear</a>
-            <a href="{{ route('obras.following') }}" class="nav-item nav-link">Seguidos</a>
             @else
             <a href="{{ route('login') }}" class="nav-item nav-link">Iniciar sesion</a>
 
@@ -23,14 +22,11 @@
       </nav>
     @endif
 
-    @if ($categoria)
-        <div class="row col-md-4 ml-5">
-            <a class="btn btn-outline-secondary" href="{{ route('obras.index') }}">{{ $categoria->nombre }} &times;</a>
-        </div>
-    @endif
-
+    <h1 class="my-5 font-weight-bold text-center">Siguiendo</h1>
+    <div class="container">
+        <a class="btn btn-outline-primary" href="{{ route('obras.index') }}">Volver</a>
+    </div>
     <div class="row col-xl-10 d-flex justify-content-center">
-        
         @foreach($obras as $obra)
         <div class="card my-5 mx-3" style="width: 18rem;">
             <img class="card-img-top" src="{{ asset('storage').'/'.$obra->imagen }}" alt="Card image cap">
@@ -74,22 +70,13 @@
                         </div>
                     </a>
                 </p>
-                <a class="btn btn-outline-secondary" href="{{ route('obras.index', $obra->categorias[0]) }}">
+                <div class="alert alert-dark d-inline-block mb-0" role="alert">
                     {{ $obra->categorias[0]->nombre }}
-                </a>
+                </div>
                 
             </div>
         </div>
         @endforeach
     </div>
-
-    @if ($paginate)
-
-    <div class="container row d-flex justify-content-center">
-        {{ $obras->links() }}
-    </div>
-        
-    @endif
-    
 </div>
 @endsection

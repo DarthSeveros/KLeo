@@ -33,9 +33,9 @@
                     {{ $obra->categorias[0]->nombre }}
                 </div>
                 @if (Route::has('login'))
-                <div>
+                <div class="row my-3 ml-1">
                     @auth
-                    <a href="{{ route('obras.edit', $obra) }}">Editar</a>
+                    <a class="btn btn-primary mr-3" href="{{ route('obras.edit', $obra) }}">Editar</a>
                     <form action="{{ route('obras.delete', $obra) }}" method="post">
                         @csrf
                         @method('delete')
@@ -52,7 +52,7 @@
         
     </div>
     <div class="container">
-        <a href="{{ route('obras.index') }}">Volver</a>
+        <a class="btn btn-outline-primary" href="{{ route('obras.index') }}">Volver</a>
     </div>
     <div class="container">
         <h4>Capítulos</h4>

@@ -17,13 +17,21 @@ class ObraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Categoria $categoria = null)
     {
+        if($categoria === null)
+        {
+            $obras = Obra::orderBy('fecha_publicacion', 'desc')->with('user')->paginate(12);
+            $paginate = true;
+        }
+        else
+        {
+            $obras = $categoria->obras;
+            $paginate = false;
+        }
         Paginator::useBootstrap();
 
-        $obras = Obra::orderBy('fecha_publicacion', 'desc')->with('user')->paginate(12);
-
-        return view('obras.index', compact('obras'));
+        return view('obras.index', compact('obras', 'paginate', 'categoria'));
     }
 
     /**
@@ -158,9 +166,6 @@ class ObraController extends Controller
     {
         $user = Auth::user();
 
-        $user->seguidos->contains($obra->id)
-            ? $obra->seguidores()->detach($user->id)
-            : $obra->seguidores()->attach($user->id);
         if ($user->seguidos->contains($obra->id))
         {
             $obra->seguidores()->detach($user->id);
@@ -171,5 +176,12 @@ class ObraController extends Controller
             $obra->seguidores()->attach($user->id);
             $obra->increment('likes',1);
         }
+        return back();
+    }
+
+    public function following()
+    {
+        $obras = Auth::user()->seguidos;
+        return view('obras.follow', compact('obras'));
     }
 }
