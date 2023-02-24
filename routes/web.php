@@ -3,6 +3,7 @@
 use App\Http\Controllers\ObraController;
 use App\Http\Controllers\CapituloController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 * });
 */
 
-
+Auth::routes();
 
 Route::controller(ObraController::class)->group(function() {
     Route::get('/{categoria?}', 'index')->name('obras.index');
@@ -55,11 +56,15 @@ Route::controller(UserController::class)->group(function() {
     Route::get('users/{user}', 'show')->name('users.show');
 });
 
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
