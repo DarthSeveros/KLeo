@@ -26,6 +26,11 @@ class Obra extends Model
         return $this->belongsToMany(Categoria::class);
     }
 
+    public function seguidores()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
     public function capitulo(): HasMany
     {
         return $this->hasMany(Capitulo::class);

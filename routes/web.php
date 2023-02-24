@@ -28,6 +28,8 @@ Route::controller(ObraController::class)->group(function() {
     Route::get('obras/{id}', 'show')->name('obras.show');
     Route::get('obras/{id}/edit', 'edit')->name('obras.edit')->middleware(['auth']);
 
+    Route::get('obras/{obra}/follow','follow')->name('obras.follow')->middleware('auth');
+
     Route::post('obras', 'store')->name('obras.store')->middleware(['auth']);
 
     Route::patch('obras/{id}', 'update')->middleware('auth')->name('obras.update');

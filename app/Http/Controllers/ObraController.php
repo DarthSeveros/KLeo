@@ -153,4 +153,23 @@ class ObraController extends Controller
             return ['error' => 'Error al eliminar'];
         }
     }
+
+    public function follow(Obra $obra)
+    {
+        $user = Auth::user();
+
+        $user->seguidos->contains($obra->id)
+            ? $obra->seguidores()->detach($user->id)
+            : $obra->seguidores()->attach($user->id);
+        if ($user->seguidos->contains($obra->id))
+        {
+            $obra->seguidores()->detach($user->id);
+            $obra->decrement('likes',1);
+        }
+        else
+        {
+            $obra->seguidores()->attach($user->id);
+            $obra->increment('likes',1);
+        }
+    }
 }

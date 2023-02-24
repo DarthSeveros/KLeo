@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->hasMany(Obra::class);
     }
 
+    public function seguidos()
+    {
+        return $this->belongsToMany(Obra::class);
+    }
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = ucwords($value);
